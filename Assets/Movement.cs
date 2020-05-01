@@ -9,12 +9,19 @@ public class Movement : MonoBehaviour
     public float speed = 6.0f;
     public float jumpSpeed = 8.0f;
     public float gravity = 20.0f;
-
     private Vector3 moveDirection = Vector3.zero;
 
+    private GameObject particles;
+    private ParticleSystem.EmissionModule fire;
+
+    //myGameObject.transform.localPosition = wallGameObject.GetComponent<PositionReferences>().GetNextPosition();
+    
     void Start()
     {
         characterController = GetComponent<CharacterController>();
+        particles = GameObject.Find("Particles");
+        particles.transform.parent = transform;
+        fire = GameObject.Find("Particles").GetComponent<ParticleSystem>().emission;
     }
 
     void Update()
@@ -30,6 +37,14 @@ public class Movement : MonoBehaviour
             if (Input.GetButton("Jump"))
             {
                 moveDirection.y = jumpSpeed;
+            }
+            if (Input.GetButtonDown("Fire1"))
+            {
+                fire.enabled = true;
+            }
+            else if (Input.GetButtonUp("Fire1"))
+            {
+                fire.enabled = false;
             }
         }
 
