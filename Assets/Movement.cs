@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Movement : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class Movement : MonoBehaviour
 
     private GameObject particles;
     private ParticleSystem.EmissionModule fire;
+    private ControllerControls controller;
 
     //myGameObject.transform.localPosition = wallGameObject.GetComponent<PositionReferences>().GetNextPosition();
     
@@ -22,6 +24,7 @@ public class Movement : MonoBehaviour
         particles = GameObject.Find("Particles");
         particles.transform.parent = transform;
         fire = GameObject.Find("Particles").GetComponent<ParticleSystem>().emission;
+        controller = new ControllerControls();
     }
 
     void Update()
@@ -38,11 +41,15 @@ public class Movement : MonoBehaviour
             {
                 moveDirection.y = jumpSpeed;
             }
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("Fire1") || controller.Main.Fire.triggered)
             {
                 fire.enabled = true;
             }
             else if (Input.GetButtonUp("Fire1"))
+            {
+                fire.enabled = false;
+            }
+            else
             {
                 fire.enabled = false;
             }

@@ -1,0 +1,39 @@
+{
+    "name": "ControllerControls",
+    "maps": [
+        {
+            "name": "Main",
+            "id": "c2dbb653-fed4-42db-bbeb-16df68680895",
+            "actions": [
+                {
+                    "name": "Fire",
+                    "type": "Button",
+                    "id": "be218dc2-35d2-4958-bd16-73b455e110ab",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "ead0bf62-613e-4b49-94e6-7a952363b9a1",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "Tap",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "controller",
+            "bindingGroup": "controller",
+            "devices": []
+        }
+    ]
+}
