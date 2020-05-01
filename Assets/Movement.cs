@@ -53,6 +53,7 @@ public class Movement : MonoBehaviour
             {
                 fire.enabled = false;
             }
+
         }
 
         // Apply gravity. Gravity is multiplied by deltaTime twice (once here, and once below
