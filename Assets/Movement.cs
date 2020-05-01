@@ -17,17 +17,24 @@ public class Movement : MonoBehaviour
     private ControllerControls controller;
 
     //myGameObject.transform.localPosition = wallGameObject.GetComponent<PositionReferences>().GetNextPosition();
-    
+
+    void Awake()
+    {
+        controller = new ControllerControls();
+
+        controller.Main.Fire.performed += ctx => Shoot();
+    }
+
     void Start()
     {
         characterController = GetComponent<CharacterController>();
         particles = GameObject.Find("Particles");
         particles.transform.parent = transform;
         fire = GameObject.Find("Particles").GetComponent<ParticleSystem>().emission;
-        controller = new ControllerControls();
+        fire.rateOverTime = 0;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (characterController.isGrounded)
         {
@@ -41,17 +48,17 @@ public class Movement : MonoBehaviour
             {
                 moveDirection.y = jumpSpeed;
             }
-            if (Input.GetButtonDown("Fire1") || controller.Main.Fire.triggered)
+            if (Input.GetButtonDown("Fire1"))
             {
-                fire.enabled = true;
+                Shoot();
             }
             else if (Input.GetButtonUp("Fire1"))
             {
-                fire.enabled = false;
+                fire.rateOverTime = 0;
             }
             else
             {
-                fire.enabled = false;
+                fire.rateOverTime = 0;
             }
 
         }
@@ -63,5 +70,20 @@ public class Movement : MonoBehaviour
 
         // Move the controller
         characterController.Move(moveDirection * Time.deltaTime);
+    }
+
+    void Shoot()
+    {
+        fire.rateOverTime = 10;
+    }
+
+    private void OnEnable()
+    {
+        controller.Main.Enable();
+    }
+
+    private void OnDisable()
+    {
+        controller.Main.Disable();
     }
 }
