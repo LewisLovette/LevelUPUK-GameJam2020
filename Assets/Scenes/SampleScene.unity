@@ -10276,7 +10276,7 @@ MonoBehaviour:
   speed: 6
   jumpSpeed: 8
   gravity: 20
-  airGunPrefab: {fileID: 359230815712999547, guid: f67ce38dfe46afe41bf15a5bbfd65cfc,
+  airGunPrefab: {fileID: 3939085361867834723, guid: 58c85a94633d7994c9773a657082a701,
     type: 3}
 --- !u!143 &2029879739
 CharacterController:
