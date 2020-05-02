@@ -5,7 +5,7 @@ using UnityEngine;
 public class eShield : MonoBehaviour
 {
 
-    int hp = 2;
+    int hp = 1;
 
     void OnParticleCollision(GameObject other)
     {

@@ -6,16 +6,21 @@ public class Enemy : MonoBehaviour
 {
 
     GameObject player;
-    GameObject[] shields;
+    List<GameObject> shields = new List<GameObject>();
+    GameObject[] getShields;
 
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.Find("Player");
-        shields = GameObject.FindGameObjectsWithTag("eShield");
-        foreach (var shield in shields)
+        getShields = GameObject.FindGameObjectsWithTag("eShield");
+        foreach (var shield in getShields)
         {
-            shield.transform.parent = transform;
+            if (Vector3.Distance(this.transform.position, shield.transform.position) < 1.5)
+            {
+                shield.transform.parent = transform;
+                shields.Add(shield);
+            }
         }
     }
 
@@ -30,7 +35,7 @@ public class Enemy : MonoBehaviour
             }
             catch (MissingReferenceException e)
             {
-                Debug.Log("Error " + e);
+                //Debug.Log("Error " + e);
             }
         }
 
