@@ -57,6 +57,14 @@ public class @ControllerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""AirGun"",
+                    ""type"": ""Button"",
+                    ""id"": ""b8c87545-ed64-47b3-b6cb-5f0e2146d810"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -114,6 +122,17 @@ public class @ControllerControls : IInputActionCollection, IDisposable
                     ""action"": ""rDown"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""60bcf7f7-469d-4a44-bd7e-32793541c441"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AirGun"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -133,6 +152,7 @@ public class @ControllerControls : IInputActionCollection, IDisposable
         m_Main_rRight = m_Main.FindAction("rRight", throwIfNotFound: true);
         m_Main_rUp = m_Main.FindAction("rUp", throwIfNotFound: true);
         m_Main_rDown = m_Main.FindAction("rDown", throwIfNotFound: true);
+        m_Main_AirGun = m_Main.FindAction("AirGun", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -187,6 +207,7 @@ public class @ControllerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Main_rRight;
     private readonly InputAction m_Main_rUp;
     private readonly InputAction m_Main_rDown;
+    private readonly InputAction m_Main_AirGun;
     public struct MainActions
     {
         private @ControllerControls m_Wrapper;
@@ -196,6 +217,7 @@ public class @ControllerControls : IInputActionCollection, IDisposable
         public InputAction @rRight => m_Wrapper.m_Main_rRight;
         public InputAction @rUp => m_Wrapper.m_Main_rUp;
         public InputAction @rDown => m_Wrapper.m_Main_rDown;
+        public InputAction @AirGun => m_Wrapper.m_Main_AirGun;
         public InputActionMap Get() { return m_Wrapper.m_Main; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -220,6 +242,9 @@ public class @ControllerControls : IInputActionCollection, IDisposable
                 @rDown.started -= m_Wrapper.m_MainActionsCallbackInterface.OnRDown;
                 @rDown.performed -= m_Wrapper.m_MainActionsCallbackInterface.OnRDown;
                 @rDown.canceled -= m_Wrapper.m_MainActionsCallbackInterface.OnRDown;
+                @AirGun.started -= m_Wrapper.m_MainActionsCallbackInterface.OnAirGun;
+                @AirGun.performed -= m_Wrapper.m_MainActionsCallbackInterface.OnAirGun;
+                @AirGun.canceled -= m_Wrapper.m_MainActionsCallbackInterface.OnAirGun;
             }
             m_Wrapper.m_MainActionsCallbackInterface = instance;
             if (instance != null)
@@ -239,6 +264,9 @@ public class @ControllerControls : IInputActionCollection, IDisposable
                 @rDown.started += instance.OnRDown;
                 @rDown.performed += instance.OnRDown;
                 @rDown.canceled += instance.OnRDown;
+                @AirGun.started += instance.OnAirGun;
+                @AirGun.performed += instance.OnAirGun;
+                @AirGun.canceled += instance.OnAirGun;
             }
         }
     }
@@ -259,5 +287,6 @@ public class @ControllerControls : IInputActionCollection, IDisposable
         void OnRRight(InputAction.CallbackContext context);
         void OnRUp(InputAction.CallbackContext context);
         void OnRDown(InputAction.CallbackContext context);
+        void OnAirGun(InputAction.CallbackContext context);
     }
 }

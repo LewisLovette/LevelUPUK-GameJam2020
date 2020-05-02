@@ -10,6 +10,9 @@ public class Movement : MonoBehaviour
     public float speed = 6.0f;
     public float jumpSpeed = 8.0f;
     public float gravity = 20.0f;
+    public GameObject airGunPrefab;
+
+
     private Vector3 moveDirection = Vector3.zero;
 
     private GameObject particles;
@@ -21,6 +24,12 @@ public class Movement : MonoBehaviour
     private Vector2 rotate;
     private bool left = false;
     private bool right = false;
+    private bool growAir = false;
+
+    GameObject temp;
+    float airScale = 1f;
+    float timer = 0;
+
     void Awake()
     {
         controller = new ControllerControls();
@@ -30,6 +39,7 @@ public class Movement : MonoBehaviour
 
         controller.Main.rLeft.performed += ctx => RotateLeft();
         controller.Main.rRight.performed += ctx => RotateRight();
+        controller.Main.AirGun.performed += ctx => AirShot();
 
         controller.Main.rLeft.canceled += ctx => RotateStop();
         controller.Main.rRight.canceled += ctx => RotateStop();
@@ -98,7 +108,25 @@ public class Movement : MonoBehaviour
             shield.transform.RotateAround(transform.position, Vector3.up, 300f * Time.deltaTime);
             slowmo.transform.RotateAround(transform.position, Vector3.up, 300f * Time.deltaTime);
         }
-        
+
+        if (growAir)
+        {
+            timer = 0;
+
+            airScale += 0.25f;
+            temp.transform.localScale = new Vector3(airScale, airScale, airScale);
+
+            Debug.Log(airScale);
+
+            if(airScale > 20f)
+            {
+                airScale = 1f;
+                Destroy(temp);
+                growAir = false;
+            }
+        }
+
+        timer += 1 * Time.deltaTime;
     }
 
     private void OnParticleCollision(GameObject other)
@@ -109,6 +137,18 @@ public class Movement : MonoBehaviour
     void Shoot()
     {
         fire.rateOverTime = 10;
+    }
+
+    void AirShot()
+    {
+        if (!growAir)
+        {
+            temp = Instantiate(airGunPrefab, transform.position, slowmo.transform.rotation);
+            temp.layer = 11;
+            growAir = true;
+        }
+        //temp.transform.LookAt(particles.transform);
+        //temp.GetComponent<Rigidbody>().velocity = slowmo.transform.right*10;
     }
 
     void RotateLeft()
