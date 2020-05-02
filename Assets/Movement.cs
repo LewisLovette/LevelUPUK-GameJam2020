@@ -30,8 +30,6 @@ public class Movement : MonoBehaviour
 
         controller.Main.rLeft.performed += ctx => RotateLeft();
         controller.Main.rRight.performed += ctx => RotateRight();
-        controller.Main.rUp.performed += ctx => RotateUp();
-        controller.Main.rDown.performed += ctx => RotateDown();
 
         controller.Main.rLeft.canceled += ctx => RotateStop();
         controller.Main.rRight.canceled += ctx => RotateStop();
@@ -103,6 +101,11 @@ public class Movement : MonoBehaviour
         
     }
 
+    private void OnParticleCollision(GameObject other)
+    {
+        Debug.Log("Player Hit!");
+    }
+
     void Shoot()
     {
         fire.rateOverTime = 10;
@@ -117,14 +120,6 @@ public class Movement : MonoBehaviour
     {
         right = true;
         //particles.transform.RotateAround(transform.position, Vector3.up, -50f);
-    }
-    void RotateUp()
-    {
-
-    }
-    void RotateDown()
-    {
-
     }
 
     void RotateStop()

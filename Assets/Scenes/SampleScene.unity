@@ -328,7 +328,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 223798355}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &223798360
 Camera:
   m_ObjectHideFlags: 0
@@ -3499,7 +3499,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 951511909}
 --- !u!114 &1073253281
@@ -4738,7 +4738,7 @@ MonoBehaviour:
     m_MinDuration: 0
   - m_FullHash: 1545607776
     m_VirtualCamera: {fileID: 0}
-    m_ActivateAfter: 0.2
+    m_ActivateAfter: 1
     m_MinDuration: 0
   m_DefaultBlend:
     m_Style: 7
@@ -10198,7 +10198,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.45
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &2029879735
 MeshRenderer:
