@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Cinemachine;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,11 +8,13 @@ using UnityEngine;
 public class SlowMo : MonoBehaviour
 {
     ParticleSystem ps;
+    Animator slowmo;
 
     // Start is called before the first frame update
     void Start()
     {
         ps = GetComponent<ParticleSystem>();
+        slowmo = GameObject.Find("Player").GetComponent<Animator>();
     }
 
 
@@ -26,11 +29,17 @@ public class SlowMo : MonoBehaviour
         {
             Debug.Log("PC-Trig - Slowed");
             Time.timeScale = 0.1f;
+
+            slowmo.SetBool("slow", true);
+            
         }
         else
         {
             Time.timeScale = 0.5f;
             Debug.Log("PC-Trig - Slowed");
+
+            slowmo.SetBool("slow", false);
+
         }
 
         //Debug.Log("Inside: " + numInside);
