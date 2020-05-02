@@ -109,24 +109,29 @@ public class Movement : MonoBehaviour
             slowmo.transform.RotateAround(transform.position, Vector3.up, 300f * Time.deltaTime);
         }
 
+
+        //timer += 1 * Time.deltaTime;
+    }
+
+
+    void FixedUpdate()
+    {
         if (growAir)
         {
-            timer = 0;
+            //timer = 0;
 
-            airScale += 0.25f;
+            airScale += 0.5f;
             temp.transform.localScale = new Vector3(airScale, airScale, airScale);
 
             Debug.Log(airScale);
 
-            if(airScale > 20f)
+            if (airScale > 20f)
             {
                 airScale = 1f;
                 Destroy(temp);
                 growAir = false;
             }
         }
-
-        timer += 1 * Time.deltaTime;
     }
 
     private void OnParticleCollision(GameObject other)
