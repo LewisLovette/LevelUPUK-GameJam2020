@@ -14,6 +14,7 @@ public class Movement : MonoBehaviour
 
     private GameObject particles;
     private GameObject shield;
+    private GameObject slowmo;
     private ParticleSystem.EmissionModule fire;
     private ControllerControls controller;
 
@@ -40,11 +41,16 @@ public class Movement : MonoBehaviour
     void Start()
     {
         characterController = GetComponent<CharacterController>();
+
+        //parenting objects
         particles = GameObject.Find("Particles");
         particles.transform.parent = transform;
 
         shield = GameObject.Find("Shield");
         shield.transform.parent = transform;
+
+        slowmo = GameObject.Find("SlowMo");
+        slowmo.transform.parent = transform;
 
         fire = GameObject.Find("Particles").GetComponent<ParticleSystem>().emission;
         fire.rateOverTime = 0;
@@ -86,11 +92,13 @@ public class Movement : MonoBehaviour
         {
             particles.transform.RotateAround(transform.position, Vector3.up, -300f * Time.deltaTime);
             shield.transform.RotateAround(transform.position, Vector3.up, -300f * Time.deltaTime);
+            slowmo.transform.RotateAround(transform.position, Vector3.up, -300f * Time.deltaTime);
         }
         else if (right)
         {
             particles.transform.RotateAround(transform.position, Vector3.up, 300f * Time.deltaTime);
             shield.transform.RotateAround(transform.position, Vector3.up, 300f * Time.deltaTime);
+            slowmo.transform.RotateAround(transform.position, Vector3.up, 300f * Time.deltaTime);
         }
         
     }
