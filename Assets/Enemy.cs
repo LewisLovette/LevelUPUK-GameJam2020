@@ -24,7 +24,14 @@ public class Enemy : MonoBehaviour
     {
         foreach(var shield in shields)
         {
-            shield.transform.RotateAround(transform.position, Vector3.up, 300f * Time.deltaTime);
+            try
+            {
+                shield.transform.RotateAround(transform.position, Vector3.up, 300f * Time.deltaTime);
+            }
+            catch (MissingReferenceException e)
+            {
+                Debug.Log("Error " + e);
+            }
         }
 
         transform.position = Vector3.MoveTowards(transform.position, player.transform.position, 0.1f);
