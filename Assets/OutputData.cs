@@ -47,6 +47,7 @@ public class OutputData : MonoBehaviour
         else if(enemiesKilled == 7 && !loadEnd)
         {
             loadEnd = true;
+            Debug.Log("SWITCH OD");
             FinishRun();
             SceneManager.LoadScene("EndScreen", LoadSceneMode.Single);
         }

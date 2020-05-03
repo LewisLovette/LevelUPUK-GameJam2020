@@ -186,7 +186,7 @@ public class Movement : MonoBehaviour
     {
         if (recieveDamage)
         {
-            hp-=1;
+            hp--;
             data.TotalHealth++;
 
             if (hp < 1)
@@ -196,6 +196,7 @@ public class Movement : MonoBehaviour
                 fire.rateOverTime = 0;
                 data.TotalBullets += particles.GetComponent<ParticleSystem>().particleCount;
                 data.FinishRun();
+                Debug.Log("SWITCH M - HP: " + hp);
                 SceneManager.LoadScene("EndScreen", LoadSceneMode.Single);
             }
         }

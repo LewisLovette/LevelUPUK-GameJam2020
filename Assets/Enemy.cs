@@ -20,7 +20,7 @@ public class Enemy : MonoBehaviour
     private bool recieveDamage;
 
     private OutputData data;
-
+    bool notKilled = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -115,8 +115,9 @@ public class Enemy : MonoBehaviour
             hp--;
             data.TotalHealth++;
 
-            if (hp < 1)
+            if (hp < 1 && notKilled)
             {
+                notKilled = false;
                 //Detatch from parent & stop emmission 
                 foreach (var particle in particles)
                 {
@@ -127,12 +128,14 @@ public class Enemy : MonoBehaviour
                     tempEmissionRate = particles[i].GetComponent<ParticleSystem>().emission;
                     tempEmissionRate.rateOverTime = 0;
                 }
-                data.EnemiesKilled++;
+                
                 foreach(var particle in particles)
                 {
                     data.TotalBullets += particle.GetComponent<ParticleSystem>().particleCount;
                 }
+
                 
+                data.EnemiesKilled++;
                 Destroy(this.gameObject);
             }
         }
