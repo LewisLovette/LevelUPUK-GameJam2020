@@ -7,7 +7,8 @@ public class Movement : MonoBehaviour
 {
     CharacterController characterController;
 
-    public int hp = 0;
+    public float hp = 0;
+    private float maxHP;
     public float speed = 6.0f;
     public float jumpSpeed = 8.0f;
     public float gravity = 20.0f;
@@ -33,6 +34,12 @@ public class Movement : MonoBehaviour
     private float damageTime;
     private bool recieveDamage = false;
     float growCD = 0;
+
+    public float barDisplay; //current progress
+    public Vector2 pos = new Vector2(20, 40);
+    public Vector2 size = new Vector2(60, 20);
+    public Texture2D emptyTex;
+    public Texture2D fullTex;
 
     void Awake()
     {
@@ -66,6 +73,8 @@ public class Movement : MonoBehaviour
 
         fire = GameObject.Find("Particles").GetComponent<ParticleSystem>().emission;
         fire.rateOverTime = 0;
+
+        maxHP = hp;
     }
 
     void Update()
@@ -113,7 +122,8 @@ public class Movement : MonoBehaviour
             slowmo.transform.RotateAround(transform.position, Vector3.up, 300f * Time.deltaTime);
         }
 
-
+        barDisplay = Time.time * 0.05f;
+        Debug.Log("HP STUFF : " + barDisplay + " : " + (float)(hp / maxHP)*100 + " : " + hp);
         //timer += 1 * Time.deltaTime;
     }
 
@@ -150,11 +160,25 @@ public class Movement : MonoBehaviour
         }
     }
 
+
+    void OnGUI()
+    {
+        //draw the background:
+        GUI.BeginGroup(new Rect(pos.x, pos.y, size.x, size.y));
+        GUI.Box(new Rect(0, 0, size.x, size.y), emptyTex);
+
+        //draw the filled-in part:
+        GUI.BeginGroup(new Rect(0, 0, size.x * (hp / maxHP), size.y));
+        GUI.Box(new Rect(0, 0, size.x, size.y), fullTex);
+        GUI.EndGroup();
+        GUI.EndGroup();
+    }
+
     private void OnParticleCollision(GameObject other)
     {
         if (recieveDamage)
         {
-            hp--;
+            hp-=1;
 
             if (hp < 1)
             {
