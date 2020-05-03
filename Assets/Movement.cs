@@ -7,6 +7,7 @@ public class Movement : MonoBehaviour
 {
     CharacterController characterController;
 
+    public int hp = 0;
     public float speed = 6.0f;
     public float jumpSpeed = 8.0f;
     public float gravity = 20.0f;
@@ -29,6 +30,9 @@ public class Movement : MonoBehaviour
     GameObject temp;
     float airScale = 1f;
     float timer = 0;
+    private float damageTime;
+    private bool recieveDamage = false;
+    float growCD = 0;
 
     void Awake()
     {
@@ -116,7 +120,9 @@ public class Movement : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (growAir)
+        growCD -= 1 * Time.deltaTime;
+
+        if (growAir && growCD <= 0)
         {
             //timer = 0;
 
@@ -130,13 +136,35 @@ public class Movement : MonoBehaviour
                 airScale = 1f;
                 Destroy(temp);
                 growAir = false;
+                growCD = 1f;
             }
+        }
+
+        damageTime += 1 * Time.deltaTime;
+
+        //So no double hits
+        if (damageTime > 0.1)
+        {
+            damageTime = 0;
+            recieveDamage = true;
         }
     }
 
     private void OnParticleCollision(GameObject other)
     {
-        //Debug.Log("Player Hit!");
+        if (recieveDamage)
+        {
+            hp--;
+
+            if (hp < 1)
+            {
+
+                particles.transform.parent = null;
+                fire.rateOverTime = 0;
+
+                Destroy(this.gameObject);
+            }
+        }
     }
 
     void Shoot()

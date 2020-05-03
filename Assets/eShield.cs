@@ -5,13 +5,14 @@ using UnityEngine;
 public class eShield : MonoBehaviour
 {
 
-    int hp = 1;
+    int hp = 100;
 
     private float damageTime;
     private bool recieveDamage;
 
     private void FixedUpdate()
     {
+        damageTime += Time.deltaTime;
         //So no double hits
         if (damageTime > 0.1)
         {

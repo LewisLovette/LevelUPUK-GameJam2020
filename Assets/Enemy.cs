@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour
     List<GameObject> particles = new List<GameObject>();
     ParticleSystem.EmissionModule tempEmissionRate;
 
-    public int hp = 100000;
+    public int hp = 0;
     private bool dying = false;
 
     private float damageTime;
@@ -46,7 +46,7 @@ public class Enemy : MonoBehaviour
         for (int i = 0; i < particles.Count; i++)
         {
             tempEmissionRate = particles[i].GetComponent<ParticleSystem>().emission;
-            tempEmissionRate.rateOverTime = 10;
+            tempEmissionRate.rateOverTime = 3;
         }
 
     }
