@@ -36,8 +36,8 @@ public class Movement : MonoBehaviour
     float growCD = 0;
 
     public float barDisplay; //current progress
-    public Vector2 pos = new Vector2(20, 40);
-    public Vector2 size = new Vector2(60, 20);
+    public Vector2 pos;
+    public Vector2 size;
     public Texture2D emptyTex;
     public Texture2D fullTex;
 
@@ -64,7 +64,7 @@ public class Movement : MonoBehaviour
         //parenting objects
         particles = GameObject.Find("Particles");
         particles.transform.parent = transform;
-
+         
         shield = GameObject.Find("Shield");
         shield.transform.parent = transform;
 
@@ -75,6 +75,9 @@ public class Movement : MonoBehaviour
         fire.rateOverTime = 0;
 
         maxHP = hp;
+
+        pos = new Vector2(20, 40);
+        size = new Vector2(500, 30);
     }
 
     void Update()
@@ -122,8 +125,8 @@ public class Movement : MonoBehaviour
             slowmo.transform.RotateAround(transform.position, Vector3.up, 300f * Time.deltaTime);
         }
 
-        barDisplay = Time.time * 0.05f;
-        Debug.Log("HP STUFF : " + barDisplay + " : " + (float)(hp / maxHP)*100 + " : " + hp);
+        //barDisplay = Time.time * 0.05f;
+        //Debug.Log("HP STUFF : " + barDisplay + " : " + (float)(hp / maxHP)*100 + " : " + hp);
         //timer += 1 * Time.deltaTime;
     }
 
