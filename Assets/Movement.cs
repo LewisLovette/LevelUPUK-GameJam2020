@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class Movement : MonoBehaviour
 {
@@ -146,7 +147,7 @@ public class Movement : MonoBehaviour
             airScale += 0.5f;
             temp.transform.localScale = new Vector3(airScale, airScale, airScale);
 
-            Debug.Log(airScale);
+            //Debug.Log(airScale);
 
             if (airScale > 20f)
             {
@@ -193,8 +194,8 @@ public class Movement : MonoBehaviour
 
                 particles.transform.parent = null;
                 fire.rateOverTime = 0;
-
-                Destroy(this.gameObject);
+                data.FinishRun();
+                SceneManager.LoadScene("EndScreen", LoadSceneMode.Single);
             }
         }
     }

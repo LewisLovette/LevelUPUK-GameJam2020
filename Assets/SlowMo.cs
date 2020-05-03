@@ -31,7 +31,7 @@ public class SlowMo : MonoBehaviour
 
         if (numInside > 0)
         {
-            Debug.Log("PC-Trig - Slowed");
+            //Debug.Log("PC-Trig - Slowed");
             slowCondition = true;
             //player.SlowTime();
 
@@ -45,7 +45,7 @@ public class SlowMo : MonoBehaviour
             slowCondition = false;
             //zoom.enabled = false;
 
-            Debug.Log("PC-Trig - Normal");
+            //Debug.Log("PC-Trig - Normal");
 
             //StartCoroutine("normal");
 

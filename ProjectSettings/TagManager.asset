@@ -8,6 +8,7 @@ TagManager:
   - particles
   - eShield
   - eParticles
+  - enemy
   layers:
   - Default
   - TransparentFX

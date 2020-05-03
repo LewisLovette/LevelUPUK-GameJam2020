@@ -32,7 +32,7 @@ public class eShield : MonoBehaviour
     {
         if (recieveDamage)
         {
-            Debug.Log("SHIELD HIT " + this.name);
+            //Debug.Log("SHIELD HIT " + this.name);
 
             this.hp--;
 

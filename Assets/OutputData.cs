@@ -7,14 +7,21 @@ using UnityEngine.SceneManagement;
 public class OutputData : MonoBehaviour
 {
     DateTime startTime;
-    TimeSpan totalTime;
-    private int totalBullets;
+    private TimeSpan totalTime;
+    private int totalBullets = 0;
     private int totalHealth;
     private int enemiesKilled;
     private int sceneSwitch = 0;
+
+    bool load2 = false;
+    bool load3 = false;
+    bool loadEnd = false;
+
+
     public int TotalBullets { get => totalBullets; set => totalBullets = value; }
     public int TotalHealth { get => totalHealth; set => totalHealth = value; }
     public int EnemiesKilled { get => enemiesKilled; set => enemiesKilled = value; }
+    public TimeSpan TotalTime { get => totalTime; set => totalTime = value; }
 
 
     // Start is called before the first frame update
@@ -23,27 +30,30 @@ public class OutputData : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
         startTime = DateTime.Now;
     }
-    void SwitchScene()
+
+    void Update()
     {
-        if (sceneSwitch == 0)   //to level 2
+        //Debug.Log("Enemies killed: " + EnemiesKilled);
+        if (enemiesKilled == 1 && !load2)
         {
-            sceneSwitch++;
+            load2 = true;
             SceneManager.LoadScene("Level 2", LoadSceneMode.Single);
         }
-        else if (sceneSwitch == 1)  //to level 3
+        else if(enemiesKilled == 3 && !load3)
         {
-            sceneSwitch++;
+            load3 = true;
             SceneManager.LoadScene("Level 3", LoadSceneMode.Single);
         }
-        else if (sceneSwitch == 2)   //to end screen
+        else if(enemiesKilled == 7 && !loadEnd)
         {
-            sceneSwitch++;
+            loadEnd = true;
+            FinishRun();
             SceneManager.LoadScene("EndScreen", LoadSceneMode.Single);
         }
 
     }
 
-    void FinishRun()
+    public void FinishRun()
     {
         totalTime = DateTime.Now.Subtract(startTime);
     }

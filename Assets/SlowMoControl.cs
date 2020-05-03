@@ -17,7 +17,7 @@ public class SlowMoControl : MonoBehaviour
         ps = GameObject.FindGameObjectsWithTag("particles");
         foreach(var system in ps)
         {
-            Debug.Log(system.name);
+            //Debug.Log(system.name);
             checkSlow.Add(system.GetComponent<SlowMo>());
         }
     }
