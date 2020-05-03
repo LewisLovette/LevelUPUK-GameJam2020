@@ -41,6 +41,8 @@ public class Movement : MonoBehaviour
     public Texture2D emptyTex;
     public Texture2D fullTex;
 
+    private OutputData data;
+
     void Awake()
     {
         controller = new ControllerControls();
@@ -59,6 +61,8 @@ public class Movement : MonoBehaviour
 
     void Start()
     {
+        data = GameObject.Find("Data").GetComponent<OutputData>();
+
         characterController = GetComponent<CharacterController>();
 
         //parenting objects
@@ -182,6 +186,7 @@ public class Movement : MonoBehaviour
         if (recieveDamage)
         {
             hp-=1;
+            data.TotalHealth++;
 
             if (hp < 1)
             {

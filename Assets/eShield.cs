@@ -10,6 +10,13 @@ public class eShield : MonoBehaviour
     private float damageTime;
     private bool recieveDamage;
 
+    private OutputData data;
+
+    private void Start()
+    {
+        data = GameObject.Find("Data").GetComponent<OutputData>();
+    }
+
     private void FixedUpdate()
     {
         damageTime += Time.deltaTime;
@@ -31,6 +38,7 @@ public class eShield : MonoBehaviour
 
             if (this.hp < 1)
             {
+                data.TotalHealth++;
                 Destroy(this.gameObject);
             }
         }

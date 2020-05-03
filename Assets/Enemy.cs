@@ -18,9 +18,15 @@ public class Enemy : MonoBehaviour
 
     private float damageTime;
     private bool recieveDamage;
+
+    private OutputData data;
+
     // Start is called before the first frame update
     void Start()
     {
+
+        data = GameObject.Find("Data").GetComponent<OutputData>();
+
         player = GameObject.Find("Player");
         getShields = GameObject.FindGameObjectsWithTag("eShield");
         foreach (var shield in getShields)
@@ -107,6 +113,7 @@ public class Enemy : MonoBehaviour
         if (recieveDamage)
         {
             hp--;
+            data.TotalHealth++;
 
             if (hp < 1)
             {
@@ -120,7 +127,7 @@ public class Enemy : MonoBehaviour
                     tempEmissionRate = particles[i].GetComponent<ParticleSystem>().emission;
                     tempEmissionRate.rateOverTime = 0;
                 }
-
+                data.EnemiesKilled++;
                 Destroy(this.gameObject);
             }
         }

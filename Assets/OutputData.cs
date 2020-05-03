@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Data : MonoBehaviour
+public class OutputData : MonoBehaviour
 {
     DateTime startTime;
     TimeSpan totalTime;
@@ -35,7 +35,7 @@ public class Data : MonoBehaviour
             sceneSwitch++;
             SceneManager.LoadScene("Level 3", LoadSceneMode.Single);
         }
-        else if(sceneSwitch == 2)   //to end screen
+        else if (sceneSwitch == 2)   //to end screen
         {
             sceneSwitch++;
             SceneManager.LoadScene("EndScreen", LoadSceneMode.Single);
