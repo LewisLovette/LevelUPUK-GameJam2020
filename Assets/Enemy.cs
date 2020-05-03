@@ -128,6 +128,11 @@ public class Enemy : MonoBehaviour
                     tempEmissionRate.rateOverTime = 0;
                 }
                 data.EnemiesKilled++;
+                foreach(var particle in particles)
+                {
+                    data.TotalBullets += particle.GetComponent<ParticleSystem>().particleCount;
+                }
+                
                 Destroy(this.gameObject);
             }
         }

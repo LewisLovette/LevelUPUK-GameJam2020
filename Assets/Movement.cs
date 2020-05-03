@@ -194,6 +194,7 @@ public class Movement : MonoBehaviour
 
                 particles.transform.parent = null;
                 fire.rateOverTime = 0;
+                data.TotalBullets += particles.GetComponent<ParticleSystem>().particleCount;
                 data.FinishRun();
                 SceneManager.LoadScene("EndScreen", LoadSceneMode.Single);
             }
