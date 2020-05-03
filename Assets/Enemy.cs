@@ -118,6 +118,7 @@ public class Enemy : MonoBehaviour
             if (hp < 1 && notKilled)
             {
                 notKilled = false;
+
                 //Detatch from parent & stop emmission 
                 foreach (var particle in particles)
                 {
