@@ -13,8 +13,11 @@ public class Enemy : MonoBehaviour
     List<GameObject> particles = new List<GameObject>();
     ParticleSystem.EmissionModule tempEmissionRate;
 
-    public int hp = 10;
+    public int hp = 100000;
     private bool dying = false;
+
+    private float damageTime;
+    private bool recieveDamage;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,10 +32,10 @@ public class Enemy : MonoBehaviour
             }
         }
 
-        getParticles = GameObject.FindGameObjectsWithTag("eParticles");
+        getParticles = GameObject.FindGameObjectsWithTag("particles");
         foreach (var particle in getParticles)
         {
-            if (Vector3.Distance(this.transform.position, particle.transform.position) < 5)
+            if (Vector3.Distance(this.transform.position, particle.transform.position) < 3)
             {
                 particle.transform.parent = transform;
                 particles.Add(particle);
@@ -43,7 +46,7 @@ public class Enemy : MonoBehaviour
         for (int i = 0; i < particles.Count; i++)
         {
             tempEmissionRate = particles[i].GetComponent<ParticleSystem>().emission;
-            tempEmissionRate.rateOverTime = 3;
+            tempEmissionRate.rateOverTime = 10;
         }
 
     }
@@ -80,29 +83,46 @@ public class Enemy : MonoBehaviour
             //tempEmissionRate.rateOverTime = 10;
         }
 
-        transform.position = Vector3.MoveTowards(transform.position, player.transform.position, 0.1f);
-        transform.LookAt(player.transform);
+        if (Vector3.Distance(player.transform.position, transform.position) > 1.5)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, player.transform.position, 0.1f);
+            transform.LookAt(player.transform);
+        }
+
+        damageTime += 1 * Time.deltaTime;
+
+        //So no double hits
+        if(damageTime > 0.1)
+        {
+            damageTime = 0;
+            recieveDamage = true;
+        }
+
+
     }
 
 
     private void OnParticleCollision(GameObject other)
     {
-        hp--;
-
-        if(hp < 1)
+        if (recieveDamage)
         {
-            //Detatch from parent & stop emmission 
-            foreach (var particle in particles)
-            {
-                particle.transform.parent = null;
-            }
-            for (int i = 0; i < particles.Count; i++)
-            {
-                tempEmissionRate = particles[i].GetComponent<ParticleSystem>().emission;
-                tempEmissionRate.rateOverTime = 0;
-            }
+            hp--;
 
-            Destroy(this.gameObject);
+            if (hp < 1)
+            {
+                //Detatch from parent & stop emmission 
+                foreach (var particle in particles)
+                {
+                    particle.transform.parent = null;
+                }
+                for (int i = 0; i < particles.Count; i++)
+                {
+                    tempEmissionRate = particles[i].GetComponent<ParticleSystem>().emission;
+                    tempEmissionRate.rateOverTime = 0;
+                }
+
+                Destroy(this.gameObject);
+            }
         }
     }
 

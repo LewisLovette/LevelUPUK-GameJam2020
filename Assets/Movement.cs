@@ -136,7 +136,7 @@ public class Movement : MonoBehaviour
 
     private void OnParticleCollision(GameObject other)
     {
-        Debug.Log("Player Hit!");
+        //Debug.Log("Player Hit!");
     }
 
     void Shoot()
@@ -186,5 +186,16 @@ public class Movement : MonoBehaviour
     private void OnDisable()
     {
         controller.Main.Disable();
+    }
+
+    public void SlowTime()
+    {
+        Time.timeScale = 0.1f;
+        //Debug.Log("TIME SLOWED");
+    }
+
+    public void NormalTime()
+    {
+        Time.timeScale = 1f;
     }
 }
