@@ -6,7 +6,7 @@ public class Enemy : MonoBehaviour
 {
     
     GameObject player;
-    List<GameObject> shields = new List<GameObject>();
+    public List<GameObject> shields = new List<GameObject>();
     GameObject[] getShields;
 
     GameObject[] getParticles;
@@ -33,9 +33,13 @@ public class Enemy : MonoBehaviour
         {
             if (Vector3.Distance(this.transform.position, shield.transform.position) < 1.5)
             {
-                shield.transform.parent = transform;
                 shields.Add(shield);
             }
+        }
+
+        foreach(var s in shields)
+        {
+            s.transform.parent = transform;
         }
 
         getParticles = GameObject.FindGameObjectsWithTag("particles");
